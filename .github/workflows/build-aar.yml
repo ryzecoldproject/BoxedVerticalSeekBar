@@ -1,7 +1,7 @@
 name: Build AAR
 
 on:
-  workflow_dispatch:   # bisa dipicu manual
+  workflow_dispatch:   # bisa dijalankan manual dari tab Actions
 
 jobs:
   build:
@@ -20,11 +20,13 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
 
-      - name: Build all AAR
-        run: ./gradlew assembleRelease
+      # 🔹 Build hanya modul library, skip app
+      - name: Build library AAR
+        run: ./gradlew :BoxedVerticalSeekBarLib:assembleRelease
 
-      - name: Upload AARs
+      # 🔹 Upload hasil build agar bisa di-download dari tab Actions
+      - name: Upload AAR
         uses: actions/upload-artifact@v4
         with:
-          name: all-aar-artifacts
-          path: '**/build/outputs/aar/*.aar'
+          name: BoxedVerticalSeekBar-aar
+          path: BoxedVerticalSeekBarLib/build/outputs/aar/*.aar
