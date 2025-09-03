@@ -22,11 +22,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
 
-      - name: Build AAR
-        run: ./gradlew :library:assembleRelease
+      - name: Build all AAR
+        run: ./gradlew assembleRelease
 
-      - name: Upload AAR
+      - name: Upload AARs
         uses: actions/upload-artifact@v4
         with:
-          name: BoxedVerticalSeekBar-aar
-          path: library/build/outputs/aar/*.aar
+          name: all-aar-artifacts
+          path: '**/build/outputs/aar/*.aar'
